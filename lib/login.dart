@@ -61,7 +61,11 @@ class _MyloginState extends State<Mylogin> {
                        SizedBox(
                         height: 30,
                       ),
-                      ElevatedButton.icon(onPressed: (){}, icon: Icon(Icons.login), label: Text('LOGIN')),
+                      ElevatedButton.icon(onPressed: (){Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) =>
+                              const HomeScreen()));}, icon: Icon(Icons.login), label: Text('LOGIN')),
                       
                        SizedBox(
                         height: 50,
