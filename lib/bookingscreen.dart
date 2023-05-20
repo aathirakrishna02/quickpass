@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:quickpass/paymentscreen.dart';
-import 'package:quickpass/settingscreen.dart';
+//import 'package:quickpass/settingscreen.dart';
 
 class BookingScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Booking Details'),
+        title: const Text('Booking Details'),
       ),
       body: Padding(
-        padding: EdgeInsets.all(16.0),
+        padding: const EdgeInsets.all(16.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [

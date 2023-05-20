@@ -1,114 +1,127 @@
 import 'package:flutter/material.dart';
-//import 'package:flutter/src/widgets/framework.dart';
-//import 'package:flutter/src/widgets/placeholder.dart';
-import 'package:quickpass/homepage.dart';
-class Mylogin extends StatefulWidget {
-  const Mylogin({super.key});
+import 'package:quickpass/forgetpass.dart';
+import 'package:quickpass/register.dart';
+
+import 'homepage.dart';
+
+class LoginScreen extends StatefulWidget {
+  @override
+  _LoginScreenState createState() => _LoginScreenState();
+}
+
+class _LoginScreenState extends State<LoginScreen> {
+  TextEditingController _emailController = TextEditingController();
+  TextEditingController _passwordController = TextEditingController();
 
   @override
-  State<Mylogin> createState() => _MyloginState();
-}
-class _MyloginState extends State<Mylogin> {
+  void dispose() {
+    _emailController.dispose();
+    _passwordController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Container(
-        decoration: BoxDecoration(
-          image:  const DecorationImage(image: AssetImage('assets/login.png'), fit: BoxFit.cover)),
-        child: Scaffold(
-          backgroundColor: Colors.transparent,
-          body:Stack(
-            children: [
-              Column(
-                 mainAxisAlignment: MainAxisAlignment.start,
-                 
-                children: [
-                  Container(                
-                    //padding:  EdgeInsets.only(left: 35,top: 33),
-                    child: Text('              Quickpass', textAlign: TextAlign.center, style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 33,
-                    ),),
-                  ),
-                ],
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Login'),
+      ),
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              'Welcome Back!',
+              style: TextStyle(fontSize: 24.0, fontWeight: FontWeight.bold),
+            ),
+            SizedBox(height: 16.0),
+            TextFormField(
+              controller: _emailController,
+              keyboardType: TextInputType.emailAddress,
+              decoration: InputDecoration(
+                labelText: 'Email',
+                border: OutlineInputBorder(),
               ),
-              SingleChildScrollView(
-                child: Container(
-                  padding: EdgeInsets.only(top: MediaQuery.of(context).size.height*0.4,
-                  right: 35,
-                  left: 35 ),
-                  child: Column(
-                    children: [
-                      TextField(
-                        decoration: InputDecoration(
-                          fillColor: Color.fromARGB(255, 248, 249, 249),
-                          filled: true,
-                          hintText: 'Email or Username',
-                          border: OutlineInputBorder(borderRadius: BorderRadius.circular(10))),
-                      ),
-                      SizedBox(
-                        height: 30,
-                      ),
-                      TextField(
-                        obscureText: true,
-                         decoration: InputDecoration(
-                          fillColor: Color.fromARGB(255, 248, 249, 249),
-                          filled: true,
-                          hintText: 'Password',
-                          border: OutlineInputBorder(borderRadius: BorderRadius.circular(10))),
-                     
-                      ),
-                       SizedBox(
-                        height: 30,
-                      ),
-                      ElevatedButton.icon(onPressed: (){Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) =>
-                               HomeScreen()));}, icon: Icon(Icons.login), label: Text('LOGIN')),
-                      
-                       SizedBox(
-                        height: 50,
-                      ),
-                      Row(
-                        // mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        // crossAxisAlignment: CrossAxisAlignment.end,
-                        children: [
-                          
-                          Text('Forget Password?',
-                          style: TextStyle(fontSize: 15, fontWeight: FontWeight.w500),
-                          
-                          )
-              
-                        ],
-                      ),
-                      SizedBox(
-                        height: 20,
-                      ),
-                     
-                      Row(
-                      
-                        children: [
-                          TextButton(onPressed: () {
-                            Navigator.pushNamed(context, 'register');
-                          }, 
-                          child: Text('New to Quickpass?Sign Up',
-                          style: TextStyle(decoration: TextDecoration.underline,fontSize: 15, fontWeight: FontWeight.w500),
-                          ),
-                          style: ButtonStyle(),
-                          )
-              
-                        ],
-                      )
-              
-                    ],
-                  ),
-                ),
-              )
-            ],
-          ) ,
+            ),
+            SizedBox(height: 16.0),
+            TextFormField(
+              controller: _passwordController,
+              obscureText: true,
+              decoration: InputDecoration(
+                labelText: 'Password',
+                border: OutlineInputBorder(),
+              ),
+            ),
+            SizedBox(height: 32.0),
+            
+            ElevatedButton(
+              child: Text('Login'),
+              onPressed: () {
+                Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                               HomeScreen()));
+
+              },
+              style: ElevatedButton.styleFrom(
+              backgroundColor: Colors.blue,
+              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10),),
+              textStyle: TextStyle(
+              fontSize: 15,
+              fontWeight: FontWeight.bold)),
+              ),
+            // FlatButton(
+            //   onPressed: () {
+            //     // Handle forgot password functionality
+            //   },
+            //   child: Text('Forgot Password?'),
+            // ),
+            TextButton(
+                  onPressed: () {
+                     Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              ForgotPasswordScreen()));
+                  },
+                  child: const Text('Forgot Password?'),
+              ),
+              const SizedBox(height: 16.0),
+              TextButton(
+                  onPressed: () {
+                    //  Navigator.push(
+                    //                   context,
+                    //                   MaterialPageRoute(
+                    //                       builder: (context) =>
+                    //                           SignupScreen()));
+                  },
+                  child: const Text('Do not have an account? Signup'),
+              ),
+              const SizedBox(height: 16.0),
+              ElevatedButton(
+              child: Text('Sign up'),
+              onPressed: () {
+                 Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              SignupScreen()));
+
+              },
+              style: ElevatedButton.styleFrom(
+              backgroundColor: Colors.blue,
+              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10),),
+              textStyle: TextStyle(
+              fontSize: 15,
+              fontWeight: FontWeight.bold)),
+              ),
+
+          ],
         ),
       ),
     );
   }
 }
+
