@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 //import 'package:flutter/src/widgets/framework.dart';
 //import 'package:flutter/src/widgets/placeholder.dart';
+import 'package:quickpass/homepage.dart';
+
 
 class MyRegister extends StatefulWidget {
   const MyRegister({Key? key}) : super(key: key);
@@ -15,7 +17,7 @@ class _MyRegisterState extends State<MyRegister> {
   Widget build(BuildContext context) {
     
     return Container(
-      decoration: BoxDecoration(
+      decoration: const BoxDecoration(
         image: DecorationImage(
             image: AssetImage('assets/register.png'), fit: BoxFit.cover),
       ),
@@ -29,7 +31,7 @@ class _MyRegisterState extends State<MyRegister> {
           children: [
             Container(
               padding: EdgeInsets.only(left: 35, top: 30),
-              child: Text(
+              child: const Text(
                 'Create\nAccount',
                 style: TextStyle(color: Colors.white, fontSize: 33),
               ),
@@ -50,13 +52,13 @@ class _MyRegisterState extends State<MyRegister> {
                             decoration: InputDecoration(
                                 enabledBorder: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(10),
-                                  borderSide: BorderSide(
+                                  borderSide: const BorderSide(
                                     color: Colors.white,
                                   ),
                                 ),
                                 focusedBorder: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(10),
-                                  borderSide: BorderSide(
+                                  borderSide: const BorderSide(
                                     color: Colors.black,
                                   ),
                                 ),
@@ -66,7 +68,7 @@ class _MyRegisterState extends State<MyRegister> {
                                   borderRadius: BorderRadius.circular(10),
                                 )),
                           ),
-                          SizedBox(
+                          const SizedBox(
                             height: 30,
                           ),
                           TextField(
@@ -124,7 +126,7 @@ class _MyRegisterState extends State<MyRegister> {
                             children: [
                               Text(
                                 'Sign Up',
-                                style: TextStyle(
+                                style: const TextStyle(
                                     color: Colors.white,
                                     fontSize: 27,
                                     fontWeight: FontWeight.w700),
@@ -153,12 +155,12 @@ class _MyRegisterState extends State<MyRegister> {
                       context,
                       MaterialPageRoute(
                           builder: (context) =>
-                              const HomeScreen()));
+                               HomeScreen()));
                                 },
-                                child: Text(
+                                child: const Text(
                                   'Sign In',
                                   textAlign: TextAlign.left,
-                                  style: const TextStyle(
+                                  style: TextStyle(
                                       decoration: TextDecoration.underline,
                                       color: Colors.white,
                                       fontSize: 18),

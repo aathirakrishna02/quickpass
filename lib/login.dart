@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 //import 'package:flutter/src/widgets/framework.dart';
 //import 'package:flutter/src/widgets/placeholder.dart';
-
+import 'package:quickpass/homepage.dart';
 class Mylogin extends StatefulWidget {
   const Mylogin({super.key});
 
@@ -65,7 +65,7 @@ class _MyloginState extends State<Mylogin> {
                       context,
                       MaterialPageRoute(
                           builder: (context) =>
-                              const HomeScreen()));}, icon: Icon(Icons.login), label: Text('LOGIN')),
+                               HomeScreen()));}, icon: Icon(Icons.login), label: Text('LOGIN')),
                       
                        SizedBox(
                         height: 50,

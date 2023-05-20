@@ -64,7 +64,12 @@ flutter:
   assets:
     - assets\login.png
     - assets\register.png
-    - assets\logo.png
+    - assets\images\app_logo.png
+    - assets\images\hero_image.jpg
+    - assets\images\monument1.jpg
+    - assets\images\monument2.jpg
+    - assets\images\monument3.jpg
+    - assets\images\monument4.jpg
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

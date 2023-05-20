@@ -1,23 +1,33 @@
-// ignore_for_file: library_private_types_in_public_api
 
-import 'package:flutter/material.dart';
-// import 'package:flutter/src/widgets/framework.dart';
-// import 'package:flutter/src/widgets/placeholder.dart';
+// import 'package:flutter/material.dart';
 
-abstract class Splashscreen extends StatefulWidget {
-  const Splashscreen({super.key});
 
-  @override
-  _Splashscreen createState() => _Splashscreen();
-  
-}
-class _Splashscreen extends State<Splashscreen> {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: Container(
 
-      ),
-    );
-  }
-}
+// class SplashScreen extends StatelessWidget {
+//   @override
+//   Widget build(BuildContext context) {
+//     return Scaffold(
+//       backgroundColor: Colors.white,
+//       body: Center(
+//         child: Column(
+//           mainAxisAlignment: MainAxisAlignment.center,
+//           children: [
+//             Image.asset(
+//               'assets/images/app_logo.png',
+//               width: 150,
+//               height: 150,
+//             ),
+//             const SizedBox(height: 16.0),
+//             const Text(
+//               'QuickPass',
+//               style: TextStyle(
+//                 fontSize: 24.0,
+//                 fontWeight: FontWeight.bold,
+//               ),
+//             ),
+//           ],
+//         ),
+//       ),
+//     );
+//   }
+// }
