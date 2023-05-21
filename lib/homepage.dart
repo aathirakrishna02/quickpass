@@ -5,7 +5,7 @@ import 'package:quickpass/settingscreen.dart';
 
 import 'logoutscreen.dart';
 
-class HomeScreen extends StatelessWidget {
+class RegularUserHomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -167,7 +167,7 @@ class AppDrawer extends StatelessWidget {
                                       context,
                                       MaterialPageRoute(
                                           builder: (context) =>
-                                              HomeScreen()));
+                                              RegularUserHomeScreen()));
             },
           ),
           ListTile(

@@ -1,7 +1,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:quickpass/login.dart';
-import 'package:quickpass/register.dart';
+//import 'package:quickpass/register.dart';
 //import 'package:quickpass/splash.dart';
 //import 'package:login.dart';
 
@@ -12,7 +12,7 @@ void main() {
     routes: {
       
       'login' :(context)=> LoginScreen(),
-      'register' :(context) =>SignupScreen()
+      //'register' :(context) =>SignupScreen()
     },
   ));
 }

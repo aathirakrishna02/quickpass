@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:quickpass/forgetpass.dart';
+import 'package:quickpass/homepage.dart';
 import 'package:quickpass/register.dart';
 
-import 'homepage.dart';
+import 'adminmod/ahomescreen.dart';
 
 class LoginScreen extends StatefulWidget {
   @override
@@ -10,6 +11,8 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
+  String _selectedUserType = 'Regular User'; // Default user type selection
+
   TextEditingController _emailController = TextEditingController();
   TextEditingController _passwordController = TextEditingController();
 
@@ -24,16 +27,39 @@ class _LoginScreenState extends State<LoginScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Login'),
+        title: Text('Login'),
       ),
       body: Padding(
-        padding: const EdgeInsets.all(16.0),
+        padding: EdgeInsets.all(16.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              'Welcome Back!',
+              'Login to your account',
               style: TextStyle(fontSize: 24.0, fontWeight: FontWeight.bold),
+            ),
+            SizedBox(height: 16.0),
+            DropdownButtonFormField<String>(
+              value: _selectedUserType,
+              onChanged: (newValue) {
+                setState(() {
+                  _selectedUserType = newValue!;
+                });
+              },
+              items: [
+                DropdownMenuItem(
+                  value: 'Regular User',
+                  child: Text('Regular User'),
+                ),
+                DropdownMenuItem(
+                  value: 'Admin User',
+                  child: Text('Admin User'),
+                ),
+              ],
+              decoration: InputDecoration(
+                labelText: 'User Type',
+                border: OutlineInputBorder(),
+              ),
             ),
             SizedBox(height: 16.0),
             TextFormField(
@@ -54,16 +80,59 @@ class _LoginScreenState extends State<LoginScreen> {
               ),
             ),
             SizedBox(height: 32.0),
-            
+            // RaisedButton(
+            //   onPressed: () {
+            //     // Handle login functionality
+            //     String email = _emailController.text;
+            //     String password = _passwordController.text;
+            //     String userType = _selectedUserType;
+
+            //     // Perform login actions based on user type
+            //     if (userType == 'Regular User') {
+            //       Navigator.pushReplacement(
+            //         context,
+            //         MaterialPageRoute(
+            //           builder: (context) => RegularUserHomeScreen(),
+            //         ),
+            //       );
+            //     } else if (userType == 'Admin User') {
+            //       Navigator.pushReplacement(
+            //         context,
+            //         MaterialPageRoute(
+            //           builder: (context) => AdminUserHomeScreen(),
+            //         ),
+            //       );
+            //     }
+            //   },
+            //   color: Colors.blue,
+            //   textColor: Colors.white,
+            //   child: Text('Login'),
+            // ),
             ElevatedButton(
               child: Text('Login'),
               onPressed: () {
-                Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) =>
-                                               HomeScreen()));
+                        // Handle login functionality
+                    String email = _emailController.text;
+                    String password = _passwordController.text;
+                    String userType = _selectedUserType;
 
+                    // Perform login actions based on user type
+                    if (userType == 'Regular User') {
+                      Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => RegularUserHomeScreen(),
+                        ),
+                      );
+                    } else if (userType == 'Admin User') {
+                      Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => AdminUserHomeScreen(),
+                        ),
+                      );
+                    }
+               
               },
               style: ElevatedButton.styleFrom(
               backgroundColor: Colors.blue,
@@ -74,9 +143,13 @@ class _LoginScreenState extends State<LoginScreen> {
               ),
             // FlatButton(
             //   onPressed: () {
-            //     // Handle forgot password functionality
+            //     // Handle signup screen navigation
+            //     Navigator.push(
+            //       context,
+            //       MaterialPageRoute(builder: (context) => SignupScreen()),
+            //     );
             //   },
-            //   child: Text('Forgot Password?'),
+            //   child: Text('Don\'t have an account? Sign Up'),
             // ),
             TextButton(
                   onPressed: () {
@@ -84,44 +157,67 @@ class _LoginScreenState extends State<LoginScreen> {
                                       context,
                                       MaterialPageRoute(
                                           builder: (context) =>
-                                              ForgotPasswordScreen()));
+                                              SignupScreen()));
                   },
-                  child: const Text('Forgot Password?'),
+                  child: const Text('Don\'t have an account? Sign Up'),
               ),
-              const SizedBox(height: 16.0),
               TextButton(
                   onPressed: () {
-                    //  Navigator.push(
-                    //                   context,
-                    //                   MaterialPageRoute(
-                    //                       builder: (context) =>
-                    //                           SignupScreen()));
-                  },
-                  child: const Text('Do not have an account? Signup'),
-              ),
-              const SizedBox(height: 16.0),
-              ElevatedButton(
-              child: Text('Sign up'),
-              onPressed: () {
-                 Navigator.push(
+                     Navigator.push(
                                       context,
                                       MaterialPageRoute(
                                           builder: (context) =>
-                                              SignupScreen()));
-
-              },
-              style: ElevatedButton.styleFrom(
-              backgroundColor: Colors.blue,
-              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10),),
-              textStyle: TextStyle(
-              fontSize: 15,
-              fontWeight: FontWeight.bold)),
+                                              ForgotPasswordScreen()));
+                  },
+                  child: const Text('Forget Password'),
               ),
-
           ],
         ),
       ),
     );
   }
 }
+
+// class RegularUserHomeScreen extends StatelessWidget {
+//   @override
+//   Widget build(BuildContext context) {
+//     return Scaffold(
+//       appBar: AppBar(
+//         title: Text('Regular User Home'),
+//       ),
+//       body: Center(
+//         child: Text('Regular User Home Screen'),
+//       ),
+//     );
+//   }
+// }
+
+// class AdminUserHomeScreen extends StatelessWidget {
+//   @override
+//   Widget build(BuildContext context) {
+//     return Scaffold(
+//       appBar: AppBar(
+//         title: Text('Admin User Home'),
+//       ),
+//       body: Center(
+//         child: Text('Admin User Home Screen'),
+//       ),
+//     );
+//   }
+// }
+
+// class SignupScreen extends StatelessWidget {
+//   @override
+//   Widget build(BuildContext context) {
+//     return Scaffold(
+//       appBar: AppBar(
+//         title: Text('Sign Up'),
+//       ),
+//       body: Center(
+//         child: Text('Sign Up Screen'),
+//       ),
+//     );
+//   }
+// }
+
 
