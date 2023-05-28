@@ -1,54 +1,85 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:quickpass/editprofile.dart';
 
-class ProfileScreen extends StatelessWidget {
+class ProfileScreen extends StatefulWidget {
   @override
+  State<ProfileScreen> createState() => _ProfileScreenState();
+}
+
+class _ProfileScreenState extends State<ProfileScreen> {
+  String email="";
+
+  String name="";
+
+  String phone="";
+
+  @override
+   void initState() {
+    // TODO: implement initState
+    super.initState();
+    getname();
+  }
+
+  getname() async {
+    DocumentSnapshot snap = await FirebaseFirestore.instance
+        .collection('users')
+        .doc(FirebaseAuth.instance.currentUser!.uid)
+        .get();
+    setState(() {
+      email = (snap.data() as Map<String, dynamic>)['email'];
+      name = (snap.data() as Map<String, dynamic>)['name'];
+      phone = (snap.data() as Map<String, dynamic>)['phone'];
+    });
+  }
+
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('My Profile'),
+        title: const Text('My Profile'),
       ),
       body: Padding(
-        padding: EdgeInsets.all(16.0),
+        padding: const EdgeInsets.all(16.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            CircleAvatar(
+            const CircleAvatar(
               radius: 60.0,
               // Replace with the user's profile image
               backgroundImage: AssetImage('assets/images/profile_image.jpg'),
             ),
-            SizedBox(height: 16.0),
+            const SizedBox(height: 16.0),
+             Text(
+              name,
+              style: const TextStyle(fontSize: 24.0, fontWeight: FontWeight.bold),
+            ),
+            const SizedBox(height: 8.0),
+            Text(
+              email,
+              style: const TextStyle(fontSize: 16.0),
+            ),
+            const SizedBox(height: 16.0),
             const Text(
-              'John Doe',
-              style: TextStyle(fontSize: 24.0, fontWeight: FontWeight.bold),
-            ),
-            SizedBox(height: 8.0),
-            Text(
-              'johndoe@example.com',
-              style: TextStyle(fontSize: 16.0),
-            ),
-            SizedBox(height: 16.0),
-            Text(
               'Date of Birth',
               style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold),
             ),
-            Text(
+            const Text(
               'January 1, 1990',
               style: TextStyle(fontSize: 16.0),
             ),
-            SizedBox(height: 16.0),
-            Text(
+            const SizedBox(height: 16.0),
+            const Text(
               'Phone Number',
               style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold),
             ),
             Text(
-              '+1 123-456-7890',
+              phone,
               style: TextStyle(fontSize: 16.0),
             ),
-            SizedBox(height: 16.0),
+            const SizedBox(height: 16.0),
            ElevatedButton(
-              child: Text('EDIT PROFILE'),
+              child: const Text('EDIT PROFILE'),
               onPressed: () {
                 Navigator.push(
                                       context,

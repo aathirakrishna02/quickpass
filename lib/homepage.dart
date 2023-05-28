@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:quickpass/bookingscreen.dart';
 import 'package:quickpass/profilescreen.dart';
@@ -10,7 +12,7 @@ class RegularUserHomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Monument Ticket Booking'),
+        title: const Text('Monument Ticket Booking'),
       ),
       drawer: AppDrawer(),
       body: SingleChildScrollView(
@@ -41,7 +43,7 @@ class RegularUserHomeScreen extends StatelessWidget {
             
             // Categories or Featured Monuments
             Container(
-              padding: EdgeInsets.all(16.0),
+              padding: const EdgeInsets.all(16.0),
               child: GridView.count(
                 shrinkWrap: true,
                 crossAxisCount: 2,
@@ -69,7 +71,7 @@ class RegularUserHomeScreen extends StatelessWidget {
             // Explore by Location
             Container(
               padding: const EdgeInsets.all(16.0),
-              child: Text(
+              child: const Text(
                 'Explore by Location',
                 style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
               ),
@@ -108,10 +110,10 @@ class CategoryCard extends StatelessWidget {
             width: 80,
             fit: BoxFit.cover,
           ),
-          SizedBox(height: 8.0),
+          const SizedBox(height: 8.0),
           Text(
             title,
-            style: TextStyle(fontSize: 16),
+            style: const TextStyle(fontSize: 16),
           ),
         ],
       ),
@@ -119,8 +121,32 @@ class CategoryCard extends StatelessWidget {
   }
 }
 
-class AppDrawer extends StatelessWidget {
+class AppDrawer extends StatefulWidget {
   @override
+  State<AppDrawer> createState() => _AppDrawerState();
+}
+
+class _AppDrawerState extends State<AppDrawer> {
+  String email="";
+  String name="";
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    getname();
+  }
+
+  getname() async {
+    DocumentSnapshot snap = await FirebaseFirestore.instance
+        .collection('users')
+        .doc(FirebaseAuth.instance.currentUser!.uid)
+        .get();
+    setState(() {
+      email = (snap.data() as Map<String, dynamic>)['email'];
+      name = (snap.data() as Map<String, dynamic>)['name'];
+    });
+  }
+
   Widget build(BuildContext context) {
     return Drawer(
       child: ListView(
@@ -132,25 +158,25 @@ class AppDrawer extends StatelessWidget {
             ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
-              children: const [
-                CircleAvatar(
+              children:  [
+                const CircleAvatar(
                   radius: 30.0,
                   // Replace with the user's profile image
                   backgroundImage: AssetImage('assets/images/profile_image.jpg'),
                 ),
-                SizedBox(height: 8.0),
+                const SizedBox(height: 8.0),
                 Text(
-                  'John Doe',
-                  style: TextStyle(
+                  name,
+                  style: const TextStyle(
                     fontSize: 18.0,
                     fontWeight: FontWeight.bold,
                     color: Colors.white,
                   ),
                 ),
-                SizedBox(height: 4.0),
-                Text(
-                  'johndoe@example.com',
-                  style: TextStyle(
+                const SizedBox(height: 4.0),
+                 Text(
+                  email,
+                  style: const TextStyle(
                     fontSize: 14.0,
                     color: Colors.white,
                   ),
@@ -160,7 +186,7 @@ class AppDrawer extends StatelessWidget {
           ),
           ListTile(
             leading: const Icon(Icons.home),
-            title: Text('Home'),
+            title: const Text('Home'),
             onTap: () {
               // Handle Home screen navigation
               Navigator.push(
@@ -172,7 +198,7 @@ class AppDrawer extends StatelessWidget {
           ),
           ListTile(
             leading: const Icon(Icons.person),
-            title: Text('My Profile'),
+            title: const Text('My Profile'),
             onTap: () {
               // Handle profile screen navigation
               Navigator.push(
@@ -184,7 +210,7 @@ class AppDrawer extends StatelessWidget {
           ),
           ListTile(
             leading: const Icon(Icons.bookmark),
-            title: Text('My Bookings'),
+            title: const Text('My Bookings'),
             onTap: () {
               // Handle bookings screen navigation
               Navigator.push(
@@ -196,7 +222,7 @@ class AppDrawer extends StatelessWidget {
           ),
           ListTile(
             leading: const Icon(Icons.settings),
-            title: Text('Settings'),
+            title: const Text('Settings'),
             onTap: () {
               // Handle settings screen navigation
                Navigator.push(
@@ -208,7 +234,7 @@ class AppDrawer extends StatelessWidget {
           ),
           ListTile(
             leading: const Icon(Icons.logout),
-            title: Text('Logout'),
+            title: const Text('Logout'),
             onTap: () {
               // Handle logout functionality
               Navigator.push(

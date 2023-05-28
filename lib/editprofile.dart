@@ -1,4 +1,7 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:quickpass/profilescreen.dart';
 
 class EditProfileScreen extends StatefulWidget {
   @override
@@ -61,12 +64,19 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
              ElevatedButton(
               child: Text('Save Profile'),
               onPressed: () {
-            //     // Handle save profile functionality
-                 String name = _nameController.text;
-               String email = _emailController.text;
-               String phone = _phoneController.text;
-
-              },
+          FirebaseFirestore.instance
+              .collection('users')
+              .doc(FirebaseAuth.instance.currentUser!.uid)
+              .update(
+            {
+              "name": _nameController.text.trim(),
+              "email": _emailController.text.trim(),
+              "phone": _phoneController.text.trim(),
+            },
+          );
+          Navigator.of(context)
+              .push(MaterialPageRoute(builder: (context) => ProfileScreen()));
+        },
               style: ElevatedButton.styleFrom(
               backgroundColor: Colors.blue,
               shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10),),

@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "650598179893",
+    "project_id": "quickpass-e9815",
+    "storage_bucket": "quickpass-e9815.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:650598179893:android:0615981e483209d7bc7d7c",
+        "android_client_info": {
+          "package_name": "com.example.quickpass"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "650598179893-q4bkfe57794t766eu94miu2edak2di2j.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB5q6PI9mJmt4JZ5eZzO9DhRu-6x-vVBsw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "650598179893-q4bkfe57794t766eu94miu2edak2di2j.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "650598179893-rtjlqumhnkb46gockqbok9hliq5pns2q.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.quickpass"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

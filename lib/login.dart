@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:quickpass/forgetpass.dart';
 import 'package:quickpass/homepage.dart';
 import 'package:quickpass/register.dart';
+import 'package:quickpass/utils/owner.dart';
 
 import 'adminmod/ahomescreen.dart';
+import 'authservices.dart';
 
 class LoginScreen extends StatefulWidget {
   @override
@@ -11,18 +14,61 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-  String _selectedUserType = 'Regular User'; // Default user type selection
-
-  TextEditingController _emailController = TextEditingController();
-  TextEditingController _passwordController = TextEditingController();
+  bool _isLoading=false;
+ final TextEditingController _usernameController = TextEditingController();
+ final TextEditingController _passwordController = TextEditingController();
 
   @override
   void dispose() {
-    _emailController.dispose();
+    _usernameController.dispose();
     _passwordController.dispose();
     super.dispose();
   }
+   _loginUser() async {
+    final email = _usernameController.text.trim();
+    final password = _passwordController.text.trim();
 
+    if (!mounted) return;
+    setState(() {
+      _isLoading = true;
+    });
+
+    final role = await AuthServices.login(email: email, password: password);
+
+    if (!mounted) return;
+    setState(() {
+      _isLoading = false;
+    });
+    if (role != "USER" &&
+        role != "ADMIN" ) {
+      ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('invalid username and password')));
+      return;
+    }
+
+    Widget? page;
+    switch (role.toUpperCase()) {
+      case 'USER':
+        page = RegularUserHomeScreen();
+        print("IS USER");
+        break;
+      case 'ADMIN':
+        page = OwnerScreen();
+        print("IS A STAFF");
+
+        break;
+      
+      default:
+        print(role);
+        ScaffoldMessenger.of(context)
+            .showSnackBar(SnackBar(content: Text(role)));
+    }
+    if (page != null) {
+      if (!mounted) return;
+      Navigator.pushReplacement(
+          context, MaterialPageRoute(builder: (ctx2) => page!));
+    }
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -39,31 +85,10 @@ class _LoginScreenState extends State<LoginScreen> {
               style: TextStyle(fontSize: 24.0, fontWeight: FontWeight.bold),
             ),
             SizedBox(height: 16.0),
-            DropdownButtonFormField<String>(
-              value: _selectedUserType,
-              onChanged: (newValue) {
-                setState(() {
-                  _selectedUserType = newValue!;
-                });
-              },
-              items: [
-                DropdownMenuItem(
-                  value: 'Regular User',
-                  child: Text('Regular User'),
-                ),
-                DropdownMenuItem(
-                  value: 'Admin User',
-                  child: Text('Admin User'),
-                ),
-              ],
-              decoration: InputDecoration(
-                labelText: 'User Type',
-                border: OutlineInputBorder(),
-              ),
-            ),
+            
             SizedBox(height: 16.0),
             TextFormField(
-              controller: _emailController,
+              controller: _usernameController,
               keyboardType: TextInputType.emailAddress,
               decoration: InputDecoration(
                 labelText: 'Email',
@@ -112,26 +137,24 @@ class _LoginScreenState extends State<LoginScreen> {
               child: Text('Login'),
               onPressed: () {
                         // Handle login functionality
-                    String email = _emailController.text;
-                    String password = _passwordController.text;
-                    String userType = _selectedUserType;
+                    _loginUser();
 
                     // Perform login actions based on user type
-                    if (userType == 'Regular User') {
-                      Navigator.pushReplacement(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => RegularUserHomeScreen(),
-                        ),
-                      );
-                    } else if (userType == 'Admin User') {
-                      Navigator.pushReplacement(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => AdminUserHomeScreen(),
-                        ),
-                      );
-                    }
+                    // if (userType == 'Regular User') {
+                    //   Navigator.pushReplacement(
+                    //     context,
+                    //     MaterialPageRoute(
+                    //       builder: (context) => RegularUserHomeScreen(),
+                    //     ),
+                    //   );
+                    // } else if (userType == 'Admin User') {
+                    //   Navigator.pushReplacement(
+                    //     context,
+                    //     MaterialPageRoute(
+                    //       builder: (context) => AdminUserHomeScreen(),
+                    //     ),
+                    //   );
+                    // }
                
               },
               style: ElevatedButton.styleFrom(
