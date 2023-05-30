@@ -1,4 +1,7 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:quickpass/adminmod/ahomescreen.dart';
 
 class AddMonumentScreen extends StatefulWidget {
   @override
@@ -75,14 +78,19 @@ class _AddMonumentScreenState extends State<AddMonumentScreen> {
              ElevatedButton(
               child: const Text('Add Monument'),
               onPressed: () {
-                    // Handle add monument functionality
-                String name = _nameController.text;
-                String description = _descriptionController.text;
-                String location = _locationController.text;
-
-                // Perform add monument actions
-
-              },
+          FirebaseFirestore.instance
+              .collection('monument')
+              .doc(FirebaseAuth.instance.currentUser!.uid)
+              .set(
+            {
+              "name": _nameController.text.trim(),
+              "description": _descriptionController.text.trim(),
+              "location": _locationController.text.trim(),
+            },
+          );
+          Navigator.of(context)
+              .push(MaterialPageRoute(builder: (context) => AdminUserHomeScreen()));
+        },
               style: ElevatedButton.styleFrom(
               backgroundColor: Colors.blue,
               shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10),),

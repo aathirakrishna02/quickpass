@@ -1,11 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
+import 'package:quickpass/adminmod/ahomescreen.dart';
 import 'package:quickpass/forgetpass.dart';
 import 'package:quickpass/homepage.dart';
 import 'package:quickpass/register.dart';
-import 'package:quickpass/utils/owner.dart';
-
-import 'adminmod/ahomescreen.dart';
 import 'authservices.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -50,16 +47,12 @@ class _LoginScreenState extends State<LoginScreen> {
     switch (role.toUpperCase()) {
       case 'USER':
         page = RegularUserHomeScreen();
-        print("IS USER");
         break;
       case 'ADMIN':
-        page = OwnerScreen();
-        print("IS A STAFF");
-
+        page = AdminUserHomeScreen();
         break;
       
       default:
-        print(role);
         ScaffoldMessenger.of(context)
             .showSnackBar(SnackBar(content: Text(role)));
     }
