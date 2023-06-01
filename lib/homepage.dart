@@ -6,13 +6,68 @@ import 'package:quickpass/profilescreen.dart';
 import 'package:quickpass/settingscreen.dart';
 
 import 'logoutscreen.dart';
+import 'search.dart';
 
-class RegularUserHomeScreen extends StatelessWidget {
+class RegularUserHomeScreen extends StatefulWidget {
+
   @override
+  State<RegularUserHomeScreen> createState() => _RegularUserHomeScreenState();
+}
+
+class _RegularUserHomeScreenState extends State<RegularUserHomeScreen> {
+List<String> filteredMonuments = [];
+
+// void filterMonuments(String searchQuery) {
+//     searchQuery = searchQuery.toLowerCase();
+//     Future<List> monuments=getmonuments();
+//     setState(() {
+//       filteredMonuments = monuments
+//           .where((vehicle) => vehicle.toLowerCase().contains(searchQuery))
+//           .toList();
+//     });
+//   }
+getmonuments()async
+{
+  print("hello");
+  QuerySnapshot querySnapshot=await FirebaseFirestore.instance.collection('monument').get();
+  print(querySnapshot.docs.length);
+  List<DocumentSnapshot>documents=querySnapshot.docs;
+  List<String>monum=[];
+ for(var document in documents)
+ {
+  Map<String,dynamic> data=document.data as Map<String,dynamic>;
+  monum.add(data['name']);
+ }
+ for(var i in monum)
+ {
+  print(i);
+ }
+ return monum;
+}
+
+  changed()
+  {
+
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    getmonuments();
+  }
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        
         title: const Text('Monument Ticket Booking'),
+        actions: [
+          IconButton(
+              onPressed: () => Navigator.of(context)
+                  .push(MaterialPageRoute(builder: (_) => const SearchPage())),
+              icon: const Icon(Icons.search))
+        ],
+        
       ),
       drawer: AppDrawer(),
       body: SingleChildScrollView(
@@ -30,10 +85,11 @@ class RegularUserHomeScreen extends StatelessWidget {
             ),
             
             // Search Bar
-            const Padding(
-              padding: EdgeInsets.all(16.0),
+             Padding(
+              padding: const EdgeInsets.all(16.0),
               child: TextField(
-                decoration: InputDecoration(
+                // onChanged: (value) => filterMonuments(value),
+                decoration: const InputDecoration(
                   hintText: 'Search for monuments...',
                   prefixIcon: Icon(Icons.search),
                   border: OutlineInputBorder(),

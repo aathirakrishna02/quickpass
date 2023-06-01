@@ -64,10 +64,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
               'Date of Birth',
               style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold),
             ),
-            const Text(
-              'January 1, 1990',
-              style: TextStyle(fontSize: 16.0),
-            ),
             const SizedBox(height: 16.0),
             const Text(
               'Phone Number',

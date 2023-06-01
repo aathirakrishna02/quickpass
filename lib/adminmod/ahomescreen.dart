@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:quickpass/adminmod/addmonument.dart';
+import 'package:quickpass/logoutscreen.dart';
 
 import 'adminviewmonument.dart';
 import 'editmonu.dart';
@@ -10,12 +11,15 @@ class AdminUserHomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Organization User Home'),
+        leading: IconButton(onPressed: (){
+          Navigator.pushReplacement(context, MaterialPageRoute(builder: (ctx)=>LogoutScreen()));
+        }, icon: const Icon(Icons.logout)),
+        title: const Text('Organization User Home'),
       ),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Padding(
+          const Padding(
             padding: EdgeInsets.all(16.0),
             child: Text(
               'Welcome, Organization User!',
@@ -25,56 +29,50 @@ class AdminUserHomeScreen extends StatelessWidget {
               ),
             ),
           ),
-          SizedBox(height: 16.0),
+          const SizedBox(height: 16.0),
           ListTile(
-            leading: Icon(Icons.add),
-            title: Text('Add Monument'),
+            leading: const Icon(Icons.add),
+            title: const Text('Add Monument'),
             onTap: () {
               // Handle add monument functionality
-              Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) =>
-                                             AddMonumentScreen ()));
-            },
-          ),
-          Divider(),
-          ListTile(
-            leading: Icon(Icons.edit),
-            title: Text('Edit Monument'),
-            onTap: () {
-              // Handle edit monument functionality
-              Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) =>
-                                             EditMonumentScreen()));
-            },
-          ),
-          Divider(),
-          ListTile(
-            leading: Icon(Icons.list),
-            title: Text('View Bookings'),
-            onTap: () {
-              // Handle view bookings functionality
-               Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) =>
-                                             ViewMonumentBookingScreen()));
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => AddMonumentScreen()));
             },
           ),
           const Divider(),
           ListTile(
-            leading: Icon(Icons.list),
-            title: Text('View Bookings History'),
+            leading: const Icon(Icons.edit),
+            title: const Text('Edit Monument'),
+            onTap: () {
+              // Handle edit monument functionality
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => EditMonumentScreen()));
+            },
+          ),
+          const Divider(),
+          ListTile(
+            leading: const Icon(Icons.list),
+            title: const Text('View Bookings'),
+            onTap: () {
+              // Handle view bookings functionality
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => ViewMonumentBookingScreen()));
+            },
+          ),
+          const Divider(),
+          ListTile(
+            leading: const Icon(Icons.list),
+            title: const Text('View Bookings History'),
             onTap: () {
               // Handle view bookings  history functionality
               Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) =>
-                                             BookingHistoryScreen()));
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => BookingHistoryScreen()));
             },
           ),
           const Divider(),
@@ -107,23 +105,23 @@ class _RateMonumentsScreenState extends State<RateMonumentsScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Rate Monuments'),
+        title: const Text('Rate Monuments'),
       ),
       body: Padding(
-        padding: EdgeInsets.all(16.0),
+        padding: const EdgeInsets.all(16.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
+            const Text(
               'Rate the Monuments',
               style: TextStyle(fontSize: 24.0, fontWeight: FontWeight.bold),
             ),
-            SizedBox(height: 16.0),
-            Text(
+            const SizedBox(height: 16.0),
+            const Text(
               'Monument 1',
               style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold),
             ),
-            SizedBox(height: 8.0),
+            const SizedBox(height: 8.0),
             Slider(
               value: _rating,
               onChanged: (newValue) {
@@ -136,7 +134,7 @@ class _RateMonumentsScreenState extends State<RateMonumentsScreen> {
               divisions: 5,
               label: _rating.toString(),
             ),
-            SizedBox(height: 16.0),
+            const SizedBox(height: 16.0),
             // Text(
             //   'Monument 2',
             //   style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold),
@@ -154,7 +152,7 @@ class _RateMonumentsScreenState extends State<RateMonumentsScreen> {
             //   divisions: 5,
             //   label: _rating.toString(),
             // ),
-            SizedBox(height: 32.0),
+            const SizedBox(height: 32.0),
             // RaisedButton(
             //   onPressed: () {
             //     // Handle submit rating functionality
@@ -163,23 +161,20 @@ class _RateMonumentsScreenState extends State<RateMonumentsScreen> {
             //   textColor: Colors.white,
             //   child: Text('Submit'),
             // ),
-             ElevatedButton(
+            ElevatedButton(
               child: const Text('Submit'),
-              onPressed: () {
-                
-
-              },
+              onPressed: () {},
               style: ElevatedButton.styleFrom(
-              backgroundColor: Colors.blue,
-              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10),),
-              textStyle: const TextStyle(
-              fontSize: 15,
-              fontWeight: FontWeight.bold)),
-              ),
+                  backgroundColor: Colors.blue,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  textStyle: const TextStyle(
+                      fontSize: 15, fontWeight: FontWeight.bold)),
+            ),
           ],
         ),
       ),
     );
   }
 }
-
