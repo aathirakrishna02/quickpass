@@ -9,57 +9,22 @@ import 'logoutscreen.dart';
 import 'search.dart';
 
 class RegularUserHomeScreen extends StatefulWidget {
-
   @override
   State<RegularUserHomeScreen> createState() => _RegularUserHomeScreenState();
 }
 
 class _RegularUserHomeScreenState extends State<RegularUserHomeScreen> {
-List<String> filteredMonuments = [];
 
-// void filterMonuments(String searchQuery) {
-//     searchQuery = searchQuery.toLowerCase();
-//     Future<List> monuments=getmonuments();
-//     setState(() {
-//       filteredMonuments = monuments
-//           .where((vehicle) => vehicle.toLowerCase().contains(searchQuery))
-//           .toList();
-//     });
-//   }
-getmonuments()async
-{
-  print("hello");
-  QuerySnapshot querySnapshot=await FirebaseFirestore.instance.collection('monument').get();
-  print(querySnapshot.docs.length);
-  List<DocumentSnapshot>documents=querySnapshot.docs;
-  List<String>monum=[];
- for(var document in documents)
- {
-  Map<String,dynamic> data=document.data as Map<String,dynamic>;
-  monum.add(data['name']);
- }
- for(var i in monum)
- {
-  print(i);
- }
- return monum;
-}
+  
 
-  changed()
-  {
+  
 
-  }
+  changed() {}
 
   @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    getmonuments();
-  }
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        
         title: const Text('Monument Ticket Booking'),
         actions: [
           IconButton(
@@ -67,7 +32,6 @@ getmonuments()async
                   .push(MaterialPageRoute(builder: (_) => const SearchPage())),
               icon: const Icon(Icons.search))
         ],
-        
       ),
       drawer: AppDrawer(),
       body: SingleChildScrollView(
@@ -83,20 +47,24 @@ getmonuments()async
                 fit: BoxFit.cover,
               ),
             ),
-            
+
             // Search Bar
-             Padding(
+            Padding(
               padding: const EdgeInsets.all(16.0),
               child: TextField(
-                // onChanged: (value) => filterMonuments(value),
-                decoration: const InputDecoration(
-                  hintText: 'Search for monuments...',
+                  onTap: (){
+                    Navigator.of(context)
+                      .push(MaterialPageRoute(builder: (_)=> const SearchPage()));
+                  },
+                decoration:  const InputDecoration(
                   prefixIcon: Icon(Icons.search),
-                  border: OutlineInputBorder(),
+                  hintText: 'Search for monuments...',
+                  border:  OutlineInputBorder(),
                 ),
               ),
             ),
             
+
             // Categories or Featured Monuments
             Container(
               padding: const EdgeInsets.all(16.0),
@@ -114,7 +82,7 @@ getmonuments()async
                 ],
               ),
             ),
-            
+
             // Promotions and Offers
             Container(
               padding: const EdgeInsets.all(16.0),
@@ -123,7 +91,7 @@ getmonuments()async
                 style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
               ),
             ),
-            
+
             // Explore by Location
             Container(
               padding: const EdgeInsets.all(16.0),
@@ -132,7 +100,7 @@ getmonuments()async
                 style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
               ),
             ),
-            
+
             // Search Results or Popular Monuments
             Container(
               padding: const EdgeInsets.all(16.0),
@@ -151,7 +119,7 @@ getmonuments()async
 class CategoryCard extends StatelessWidget {
   final String title;
   final String imagePath;
-  
+
   CategoryCard(this.title, this.imagePath);
 
   @override
@@ -183,8 +151,8 @@ class AppDrawer extends StatefulWidget {
 }
 
 class _AppDrawerState extends State<AppDrawer> {
-  String email="";
-  String name="";
+  String email = "";
+  String name = "";
   @override
   void initState() {
     // TODO: implement initState
@@ -214,11 +182,12 @@ class _AppDrawerState extends State<AppDrawer> {
             ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
-              children:  [
+              children: [
                 const CircleAvatar(
                   radius: 30.0,
                   // Replace with the user's profile image
-                  backgroundImage: AssetImage('assets/images/profile_image.jpg'),
+                  backgroundImage:
+                      AssetImage('assets/images/profile_image.jpg'),
                 ),
                 const SizedBox(height: 8.0),
                 Text(
@@ -230,7 +199,7 @@ class _AppDrawerState extends State<AppDrawer> {
                   ),
                 ),
                 const SizedBox(height: 4.0),
-                 Text(
+                Text(
                   email,
                   style: const TextStyle(
                     fontSize: 14.0,
@@ -246,10 +215,9 @@ class _AppDrawerState extends State<AppDrawer> {
             onTap: () {
               // Handle Home screen navigation
               Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) =>
-                                              RegularUserHomeScreen()));
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => RegularUserHomeScreen()));
             },
           ),
           ListTile(
@@ -257,11 +225,8 @@ class _AppDrawerState extends State<AppDrawer> {
             title: const Text('My Profile'),
             onTap: () {
               // Handle profile screen navigation
-              Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) =>
-                                              ProfileScreen()));
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => ProfileScreen()));
             },
           ),
           ListTile(
@@ -269,11 +234,8 @@ class _AppDrawerState extends State<AppDrawer> {
             title: const Text('My Bookings'),
             onTap: () {
               // Handle bookings screen navigation
-              Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) =>
-                                              BookingScreen ()));
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => BookingScreen()));
             },
           ),
           ListTile(
@@ -281,11 +243,8 @@ class _AppDrawerState extends State<AppDrawer> {
             title: const Text('Settings'),
             onTap: () {
               // Handle settings screen navigation
-               Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) =>
-                                              SettingsScreen ()));
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => SettingsScreen()));
             },
           ),
           ListTile(
@@ -293,11 +252,8 @@ class _AppDrawerState extends State<AppDrawer> {
             title: const Text('Logout'),
             onTap: () {
               // Handle logout functionality
-              Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) =>
-                                              LogoutScreen ()));
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => LogoutScreen()));
             },
           ),
         ],
@@ -305,4 +261,3 @@ class _AppDrawerState extends State<AppDrawer> {
     );
   }
 }
-
