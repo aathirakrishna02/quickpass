@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:quickpass/monumentdetailscreen.dart';
@@ -12,7 +13,6 @@ class SearchPage extends StatefulWidget {
 
 class _SearchPageState extends State<SearchPage> {
 
-
    @override
     void initState() {
     // TODO: implement initState
@@ -22,6 +22,7 @@ class _SearchPageState extends State<SearchPage> {
   final searchController = TextEditingController();
   List<String> filteredMonuments = [];
   List<String> monum = [];
+  List<String> desc = [];
   void filterMonuments(String searchQuery) {
     searchQuery = searchQuery.toLowerCase();
     setState(() {
@@ -31,20 +32,29 @@ class _SearchPageState extends State<SearchPage> {
   }
 
   getmonuments() async {
-    print("hello");
     QuerySnapshot querySnapshot =
         await FirebaseFirestore.instance.collection('monument').get();
-    print(querySnapshot.docs.length);
     List<DocumentSnapshot> documents = querySnapshot.docs;
     // List<String>monum=[];
-    print('helo');
     for (var document in documents) {
-      String data = (document.data() as Map<String, dynamic>)['name'];
-      monum.add(data);
-      print('hello');
-      print(data);
+      String name = (document.data() as Map<String, dynamic>)['name'];
+      String description = (document.data() as Map<String, dynamic>)['description'];
+      monum.add(name);
+      desc.add(description);
     }
   }
+
+  int count = 0;
+
+  getdescription(){
+    for (var i in monum) {
+      if (searchController.text == i) {
+        return desc[count];
+      }
+      count +=1;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -59,7 +69,7 @@ class _SearchPageState extends State<SearchPage> {
                   icon: const Icon(Icons.search),
                                   onPressed: (){
                   Navigator.of(context)
-                    .push(MaterialPageRoute(builder: (_) => MonumentDetailScreen(monumentName: '', description: '', imageUrl: '',)));
+                    .push(MaterialPageRoute(builder: (_) => MonumentDetailScreen(monumentName: searchController.text, description: getdescription(), imageUrl: '',)));
                 },
                 ),
                 suffixIcon: IconButton(

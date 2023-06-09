@@ -187,7 +187,7 @@ class _AppDrawerState extends State<AppDrawer> {
                   radius: 30.0,
                   // Replace with the user's profile image
                   backgroundImage:
-                      AssetImage('assets/images/profile_image.jpg'),
+                      AssetImage('assets/images/hero_image.jpg'),
                 ),
                 const SizedBox(height: 8.0),
                 Text(
