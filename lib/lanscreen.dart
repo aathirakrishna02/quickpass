@@ -15,10 +15,10 @@ class LanguageSettingScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Language Settings'),
+        title: const Text('Language Settings'),
       ),
       body: Padding(
-        padding: EdgeInsets.all(16.0),
+        padding: const EdgeInsets.all(16.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -35,7 +35,7 @@ class LanguageSettingScreen extends StatelessWidget {
                 return ListTile(
                   title: Text(language),
                   trailing: selectedLanguage == language
-                      ? Icon(Icons.check)
+                      ? const Icon(Icons.check)
                       : null,
                   onTap: () {
                     // Handle language selection

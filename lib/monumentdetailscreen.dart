@@ -60,7 +60,7 @@ class _MonumentDetailScreenState extends State<MonumentDetailScreen> {
                       fontSize: 16.0,
                     ),
                   ),
-                  SizedBox(height: 16.0),
+                  const SizedBox(height: 16.0),
                   Text(
                     'Rating: $_rating',
                     style: const TextStyle(
@@ -80,7 +80,7 @@ class _MonumentDetailScreenState extends State<MonumentDetailScreen> {
                     divisions: 5,
                     label: _rating.toString(),
                   ),
-                  SizedBox(height: 16.0),
+                  const SizedBox(height: 16.0),
                   // RaisedButton(
                   //   onPressed: () {
                   //     // Handle ticket booking functionality
@@ -90,7 +90,7 @@ class _MonumentDetailScreenState extends State<MonumentDetailScreen> {
                   //   child: Text('Book Tickets'),
                   // ),
                   ElevatedButton(
-              child: Text('Book Tickets'),
+              child: const Text('Book Tickets'),
               onPressed: () {
                 Navigator.push(
                                       context,

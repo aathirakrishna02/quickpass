@@ -106,7 +106,7 @@ class _RegularUserHomeScreenState extends State<RegularUserHomeScreen> {
             TextField(
               decoration: InputDecoration(
                 labelText: 'Enter Location',
-                prefixIcon: Icon(Icons.location_on),
+                prefixIcon: const Icon(Icons.location_on),
               ),
             ),
             SizedBox(height: 16.0),

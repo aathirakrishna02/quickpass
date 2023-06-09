@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:quickpass/firebase_options.dart';
 import 'package:quickpass/login.dart';
-import 'package:quickpass/register.dart';
-import 'package:quickpass/splash.dart';
+//import 'package:quickpass/register.dart';
+//import 'package:quickpass/splash.dart';
 import 'package:firebase_core/firebase_core.dart';
 
 

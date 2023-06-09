@@ -14,17 +14,17 @@ class SettingsScreen extends StatelessWidget {
         title: Text('Settings'),
       ),
       body: Padding(
-        padding: EdgeInsets.all(16.0),
+        padding: const EdgeInsets.all(16.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
+            const Text(
               'General',
               style: TextStyle(fontSize: 24.0, fontWeight: FontWeight.bold),
             ),
             SizedBox(height: 16.0),
             ListTile(
-              leading: Icon(Icons.language),
+              leading: const Icon(Icons.language),
               title: Text('Language'),
               trailing: Icon(Icons.arrow_forward_ios),
               onTap: () {
@@ -51,15 +51,15 @@ class SettingsScreen extends StatelessWidget {
                                               NotificationSettingScreen()));
               },
             ),
-            SizedBox(height: 32.0),
-            Text(
+            const SizedBox(height: 32.0),
+            const Text(
               'Account',
               style: TextStyle(fontSize: 24.0, fontWeight: FontWeight.bold),
             ),
             SizedBox(height: 16.0),
             ListTile(
               leading: Icon(Icons.person),
-              title: Text('Profile'),
+              title: const Text('Profile'),
               trailing: Icon(Icons.arrow_forward_ios),
               onTap: () {
                 // Handle profile settings
@@ -73,7 +73,7 @@ class SettingsScreen extends StatelessWidget {
             Divider(),
             ListTile(
               leading: const Icon(Icons.lock),
-              title: Text('Change Password'),
+              title: const Text('Change Password'),
               trailing: Icon(Icons.arrow_forward_ios),
               onTap: () {
                 // Handle change password settings
@@ -86,7 +86,7 @@ class SettingsScreen extends StatelessWidget {
             ),
             const SizedBox(height: 32.0),
             ElevatedButton(
-              child: Text('Logout'),
+              child: const Text('Logout'),
               onPressed: () {
                //handle logout functionality
                Navigator.push(

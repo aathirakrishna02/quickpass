@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'ticketconfirmation.dart';
+//import 'ticketconfirmation.dart';
 
 class PaymentScreen extends StatefulWidget {
   @override
@@ -23,7 +23,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
         title: Text('Payment'),
       ),
       body: Padding(
-        padding: EdgeInsets.all(16.0),
+        padding: const EdgeInsets.all(16.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -31,12 +31,12 @@ class _PaymentScreenState extends State<PaymentScreen> {
               'Payment Method',
               style: TextStyle(fontSize: 24.0, fontWeight: FontWeight.bold),
             ),
-            SizedBox(height: 16.0),
+            const SizedBox(height: 16.0),
             const Text(
               'Select a payment method:',
               style: TextStyle(fontSize: 16.0),
             ),
-            SizedBox(height: 16.0),
+            const SizedBox(height: 16.0),
             GestureDetector(
               onTap: () => selectPaymentMethod('Credit Card'),
               child: PaymentMethodTile(
@@ -45,7 +45,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                 isSelected: selectedPaymentMethod == 'Credit Card',
               ),
             ),
-            SizedBox(height: 16.0),
+            const SizedBox(height: 16.0),
             GestureDetector(
               onTap: () => selectPaymentMethod('UPI'),
               child: PaymentMethodTile(
@@ -63,7 +63,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                 isSelected: selectedPaymentMethod == 'PayPal',
               ),
             ),
-            SizedBox(height: 16.0),
+            const SizedBox(height: 16.0),
             GestureDetector(
               onTap: () => selectPaymentMethod('Gift Card'),
               child: PaymentMethodTile(
@@ -72,7 +72,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                 isSelected: selectedPaymentMethod == 'Gift Card',
               ),
             ),
-            SizedBox(height: 32.0),
+            const SizedBox(height: 32.0),
             ElevatedButton(
               child: Text('Pay Now'),
               onPressed: () {
@@ -86,7 +86,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
               style: ElevatedButton.styleFrom(
               backgroundColor: Colors.blue,
               shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10),),
-              textStyle: TextStyle(
+              textStyle: const TextStyle(
               fontSize: 15,
               fontWeight: FontWeight.bold)),
               ),
@@ -118,14 +118,14 @@ class PaymentMethodTile extends StatelessWidget {
         ),
         borderRadius: BorderRadius.circular(8.0),
       ),
-      padding: EdgeInsets.all(16.0),
+      padding: const EdgeInsets.all(16.0),
       child: Row(
         children: [
           Icon(icon),
-          SizedBox(width: 16.0),
+          const SizedBox(width: 16.0),
           Text(
             title,
-            style: TextStyle(fontSize: 16.0),
+            style: const TextStyle(fontSize: 16.0),
           ),
         ],
       ),

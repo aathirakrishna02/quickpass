@@ -16,17 +16,17 @@ class _NotificationSettingScreenState extends State<NotificationSettingScreen> {
         title: Text('Notification Settings'),
       ),
       body: Padding(
-        padding: EdgeInsets.all(16.0),
+        padding: const EdgeInsets.all(16.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
+            const Text(
               'Manage your notification preferences',
               style: TextStyle(fontSize: 24.0, fontWeight: FontWeight.bold),
             ),
-            SizedBox(height: 16.0),
+            const SizedBox(height: 16.0),
             SwitchListTile(
-              title: Text('Enable Notifications'),
+              title: const Text('Enable Notifications'),
               value: _isNotificationEnabled,
               onChanged: (value) {
                 setState(() {
@@ -34,9 +34,9 @@ class _NotificationSettingScreenState extends State<NotificationSettingScreen> {
                 });
               },
             ),
-            SizedBox(height: 16.0),
+            const SizedBox(height: 16.0),
             ListTile(
-              title: Text('Notification Sound'),
+              title: const Text('Notification Sound'),
               trailing: Icon(Icons.arrow_forward_ios),
               onTap: () {
                 // Handle notification sound settings
