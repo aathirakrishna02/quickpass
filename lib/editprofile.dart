@@ -1,7 +1,6 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+import 'dart:io';
 import 'package:flutter/material.dart';
-import 'package:quickpass/profilescreen.dart';
+import 'package:image_picker/image_picker.dart';
 
 class EditProfileScreen extends StatefulWidget {
   @override
@@ -9,97 +8,96 @@ class EditProfileScreen extends StatefulWidget {
 }
 
 class _EditProfileScreenState extends State<EditProfileScreen> {
-  final TextEditingController _nameController = TextEditingController();
-  final TextEditingController _emailController = TextEditingController();
-  final TextEditingController _phoneController = TextEditingController();
+  File? _image;
 
-  @override
-  void dispose() {
-    _nameController.dispose();
-    _emailController.dispose();
-    _phoneController.dispose();
-    super.dispose();
+  Future<void> _pickImage(ImageSource source) async {
+    final pickedImage = await ImagePicker().pickImage(source: source);
+    if (pickedImage != null) {
+      setState(() {
+        _image = File(pickedImage.path);
+      });
+    }
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Edit Profile'),
+        title: Text('Edit Profile'),
       ),
       body: Padding(
-        padding: const EdgeInsets.all(16.0),
+        padding: EdgeInsets.all(16.0),
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Text(
-              'Edit your profile',
-              style: TextStyle(fontSize: 24.0, fontWeight: FontWeight.bold),
-            ),
-            const SizedBox(height: 16.0),
-            TextFormField(
-              controller: _nameController,
-              decoration: const InputDecoration(
-                labelText: 'Name',
-                border: OutlineInputBorder(),
+            GestureDetector(
+              onTap: () {
+                showModalBottomSheet(
+                  context: context,
+                  builder: (context) => _buildImagePickerOptions(context),
+                );
+              },
+              child: CircleAvatar(
+                radius: 60.0,
+                backgroundImage: _image != null ? FileImage(_image!) : null,
+                child: _image == null ? Icon(Icons.camera_alt, size: 60.0) : null,
               ),
             ),
             const SizedBox(height: 16.0),
-            TextFormField(
-              controller: _emailController,
-              decoration: const InputDecoration(
+            TextField(
+              decoration: InputDecoration(
+                labelText: 'Full Name',
+              ),
+            ),
+            const SizedBox(height: 16.0),
+            TextField(
+              decoration: InputDecoration(
                 labelText: 'Email',
-                border: OutlineInputBorder(),
               ),
             ),
             const SizedBox(height: 16.0),
-            TextFormField(
-              controller: _phoneController,
-              decoration: const InputDecoration(
-                labelText: 'Phone',
-                border: OutlineInputBorder(),
+            TextField(
+              decoration: InputDecoration(
+                labelText: 'Phone Number',
               ),
             ),
-            const SizedBox(height: 32.0),
-             ElevatedButton(
+            SizedBox(height: 16.0),
+            ElevatedButton(
               onPressed: () {
-          FirebaseFirestore.instance
-              .collection('users')
-              .doc(FirebaseAuth.instance.currentUser!.uid)
-              .update(
-            {
-              "name": _nameController.text.trim(),
-              "email": _emailController.text.trim(),
-              "phone": _phoneController.text.trim(),
-            },
-          );
-          Navigator.of(context)
-              .push(MaterialPageRoute(builder: (context) => ProfileScreen()));
-        },
-              style: ElevatedButton.styleFrom(
-              backgroundColor: Colors.blue,
-              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10),),
-              textStyle: const TextStyle(
-              fontSize: 15,
-              fontWeight: FontWeight.bold)),
-              child: const Text('Save Profile'),
-              ),
-            // RaisedButton(
-            //   onPressed: () {
-            //     // Handle save profile functionality
-            //     String name = _nameController.text;
-            //     String email = _emailController.text;
-            //     String phone = _phoneController.text;
-
-            //     // Update profile with the new data
-            //   },
-            //   color: Colors.blue,
-            //   textColor: Colors.white,
-            //   child: Text('Save Profile'),
-            // ),
+                // Save profile changes
+              },
+              child: Text('Save'),
+            ),
           ],
         ),
       ),
     );
   }
+
+  Widget _buildImagePickerOptions(BuildContext context) {
+    return Container(
+      padding: EdgeInsets.all(16.0),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          ListTile(
+            leading: Icon(Icons.photo_library),
+            title: Text('Choose from Gallery'),
+            onTap: () {
+              _pickImage(ImageSource.gallery);
+              Navigator.pop(context);
+            },
+          ),
+          ListTile(
+            leading: Icon(Icons.camera_alt),
+            title: Text('Take a Photo'),
+            onTap: () {
+              _pickImage(ImageSource.camera);
+              Navigator.pop(context);
+            },
+          ),
+        ],
+      ),
+    );
+  }
 }
+

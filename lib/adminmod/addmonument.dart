@@ -2,6 +2,9 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:quickpass/adminmod/ahomescreen.dart';
+import 'dart:io';
+
+import 'package:image_picker/image_picker.dart';
 
 class AddMonumentScreen extends StatefulWidget {
   @override
@@ -12,6 +15,17 @@ class _AddMonumentScreenState extends State<AddMonumentScreen> {
   TextEditingController _nameController = TextEditingController();
   TextEditingController _descriptionController = TextEditingController();
   TextEditingController _locationController = TextEditingController();
+
+ File? _image;
+
+  Future<void> _pickImage() async {
+    final pickedImage = await ImagePicker().pickImage(source: ImageSource.gallery);
+    if (pickedImage != null) {
+      setState(() {
+        _image = File(pickedImage.path);
+      });
+    }
+  }
 
   @override
   void dispose() {
@@ -32,6 +46,24 @@ class _AddMonumentScreenState extends State<AddMonumentScreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            GestureDetector(
+              onTap: _pickImage,
+              child: Container(
+                width: 200.0,
+                height: 200.0,
+                decoration: BoxDecoration(
+                  color: Colors.grey[300],
+                  borderRadius: BorderRadius.circular(8.0),
+                ),
+                child: _image != null
+                    ? ClipRRect(
+                        borderRadius: BorderRadius.circular(8.0),
+                        child: Image.file(_image!, fit: BoxFit.cover),
+                      )
+                    : Icon(Icons.add_a_photo, size: 60.0, color: Colors.grey[600]),
+              ),
+            ),
+            SizedBox(height: 16.0),
             Text(
               'Enter Monument Details',
               style: TextStyle(fontSize: 24.0, fontWeight: FontWeight.bold),

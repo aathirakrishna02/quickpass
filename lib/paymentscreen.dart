@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'ticketconfirmation.dart';
+
 class PaymentScreen extends StatefulWidget {
   @override
   _PaymentScreenState createState() => _PaymentScreenState();
@@ -74,8 +76,13 @@ class _PaymentScreenState extends State<PaymentScreen> {
             ElevatedButton(
               child: Text('Pay Now'),
               onPressed: () {
-
+                //  Navigator.push(
+                //                       context,
+                //                       MaterialPageRoute(
+                //                           builder: (context) =>
+                //                               InvoiceScreen()));
               },
+
               style: ElevatedButton.styleFrom(
               backgroundColor: Colors.blue,
               shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10),),

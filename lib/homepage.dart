@@ -87,7 +87,7 @@ class _RegularUserHomeScreenState extends State<RegularUserHomeScreen> {
             Container(
               padding: const EdgeInsets.all(16.0),
               child:  const Text(
-                'Current Promotions and Offers',
+                'Explore by Location',
                 style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
               ),
             ),
@@ -95,20 +95,39 @@ class _RegularUserHomeScreenState extends State<RegularUserHomeScreen> {
             // Explore by Location
             Container(
               padding: const EdgeInsets.all(16.0),
-              child: const Text(
-                'Explore by Location',
-                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+              // child: const Text(
+              //   'Explore by Location',
+                
+              //   style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+              // ),
+              child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            TextField(
+              decoration: InputDecoration(
+                labelText: 'Enter Location',
+                prefixIcon: Icon(Icons.location_on),
               ),
+            ),
+            SizedBox(height: 16.0),
+            ElevatedButton(
+              onPressed: () {
+                // Search monuments logic
+              },
+              child: Text('Search'),
+            ),
+          ],
+        ),
             ),
 
             // Search Results or Popular Monuments
-            Container(
-              padding: const EdgeInsets.all(16.0),
-              child: const Text(
-                'Popular Monuments',
-                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-              ),
-            ),
+            // Container(
+            //   padding: const EdgeInsets.all(16.0),
+            //   child: const Text(
+            //     'Popular Monuments',
+            //     style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+            //   ),
+            // ),
           ],
         ),
       ),
