@@ -9,17 +9,28 @@ class ProfileScreen extends StatefulWidget {
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
-  String email="";
-
-  String name="";
-
-  String phone="";
+  final storage = FirebaseFirestore.instance;
+  String email = "";
+  String name = "";
+  String phone = "";
+  String image = "";
 
   @override
    void initState() {
     // TODO: implement initState
     super.initState();
     getname();
+    getdata();
+  }
+
+  getdata() async {
+    DocumentSnapshot snap = await FirebaseFirestore.instance
+        .collection('users')
+        .doc(FirebaseAuth.instance.currentUser!.uid)
+        .get();
+    setState(() {
+      image = (snap.data() as Map<String, dynamic>)['imageLink'];
+    });
   }
 
   getname() async {
@@ -44,25 +55,31 @@ class _ProfileScreenState extends State<ProfileScreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const CircleAvatar(
-              radius: 60.0,
-              // Replace with the user's profile image
-              backgroundImage: AssetImage('assets/images/hero_image.jpg'),
-            ),
-            const SizedBox(height: 16.0),
-             Text(
-              name,
-              style: const TextStyle(fontSize: 24.0, fontWeight: FontWeight.bold),
-            ),
-            const SizedBox(height: 8.0),
-            Text(
-              email,
-              style: const TextStyle(fontSize: 16.0),
+            Container(
+              height: 100,
+              width: 100,
+              decoration: BoxDecoration(
+                  image: DecorationImage(
+                      image: NetworkImage(image), fit: BoxFit.cover),
+                  borderRadius: const BorderRadius.all(Radius.circular(100))),
             ),
             const SizedBox(height: 16.0),
             const Text(
-              'Date of Birth',
+            'Name',
               style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold),
+            ),
+            Text(
+              name,
+              style: const TextStyle(fontSize: 16.0),
+            ),
+            const SizedBox(height: 8.0),
+            const Text(
+              'Email',
+              style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold),
+            ),
+            Text(
+              email,
+              style: const TextStyle(fontSize: 16.0),
             ),
             const SizedBox(height: 16.0),
             const Text(

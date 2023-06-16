@@ -15,12 +15,6 @@ class RegularUserHomeScreen extends StatefulWidget {
 
 class _RegularUserHomeScreenState extends State<RegularUserHomeScreen> {
 
-  
-
-  
-
-  changed() {}
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
