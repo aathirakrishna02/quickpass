@@ -26,8 +26,7 @@ class _SearchPageState extends State<SearchPage> {
   void filterMonuments(String searchQuery) {
     searchQuery = searchQuery.toLowerCase();
     setState(() {
-      filteredMonuments =
-          monum.where((mo) => mo.toLowerCase().contains(searchQuery)).toList();
+      filteredMonuments = monum.where((mo) => mo.toLowerCase().contains(searchQuery)).toList();
     });
   }
 
@@ -91,9 +90,12 @@ class _SearchPageState extends State<SearchPage> {
                 final vehicle = filteredMonuments[index];
                 return ListTile(
                   title: Text(vehicle),
-                  onTap: () => setState(() {
-                    searchController.text = vehicle;
-                  }),
+                  onTap: () {
+                    setState(() {
+                      searchController.text = vehicle;
+                    });
+                    Navigator.of(context).push(MaterialPageRoute(builder: (_) => MonumentDetailScreen(monumentName: searchController.text, description: getdescription(), imageUrl: '',)));
+                  },
                 );
               },
             ),

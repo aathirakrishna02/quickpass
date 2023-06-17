@@ -2,9 +2,9 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:quickpass/adminmod/ahomescreen.dart';
-import 'dart:io';
-
+import 'dart:typed_data';
 import 'package:image_picker/image_picker.dart';
+import 'package:quickpass/resource/util.dart';
 
 class AddMonumentScreen extends StatefulWidget {
   @override
@@ -16,15 +16,13 @@ class _AddMonumentScreenState extends State<AddMonumentScreen> {
   TextEditingController _descriptionController = TextEditingController();
   TextEditingController _locationController = TextEditingController();
 
- File? _image;
+  Uint8List? _image;
 
-  Future<void> _pickImage() async {
-    final pickedImage = await ImagePicker().pickImage(source: ImageSource.gallery);
-    if (pickedImage != null) {
-      setState(() {
-        _image = File(pickedImage.path);
-      });
-    }
+  void selectImage() async {
+    Uint8List img = await pickImage(ImageSource.gallery);
+    setState(() {
+      _image = img;
+    });
   }
 
   @override
@@ -47,7 +45,7 @@ class _AddMonumentScreenState extends State<AddMonumentScreen> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             GestureDetector(
-              onTap: _pickImage,
+              onTap: selectImage,
               child: Container(
                 width: 200.0,
                 height: 200.0,
@@ -56,9 +54,14 @@ class _AddMonumentScreenState extends State<AddMonumentScreen> {
                   borderRadius: BorderRadius.circular(8.0),
                 ),
                 child: _image != null
-                    ? ClipRRect(
-                        borderRadius: BorderRadius.circular(8.0),
-                        child: Image.file(_image!, fit: BoxFit.cover),
+                    ? Container(
+                        height: 100,
+                        width: 100,
+                        decoration: BoxDecoration(
+                          image: DecorationImage(
+                            image: MemoryImage(_image!), fit: BoxFit.cover),
+                            borderRadius: BorderRadius.circular(8.0),
+                          ),
                       )
                     : Icon(Icons.add_a_photo, size: 60.0, color: Colors.grey[600]),
               ),
@@ -108,7 +111,7 @@ class _AddMonumentScreenState extends State<AddMonumentScreen> {
             //   child: Text('Add Monument'),
             // ),
              ElevatedButton(
-              child: const Text('Add Monument'),
+              child: Text('Add Monument'),
               onPressed: () {
           FirebaseFirestore.instance
               .collection('monument')
@@ -123,13 +126,13 @@ class _AddMonumentScreenState extends State<AddMonumentScreen> {
           Navigator.of(context)
               .push(MaterialPageRoute(builder: (context) => AdminUserHomeScreen()));
         },
-              style: ElevatedButton.styleFrom(
-              backgroundColor: Colors.blue,
-              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10),),
-              textStyle: const TextStyle(
-              fontSize: 15,
-              fontWeight: FontWeight.bold)),
-              ),
+            style: ElevatedButton.styleFrom(
+            backgroundColor: Colors.blue,
+            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10),),
+            textStyle: const TextStyle(
+            fontSize: 15,
+            fontWeight: FontWeight.bold)),
+            ),
           ],
         ),
       ),

@@ -97,18 +97,18 @@ class _RegularUserHomeScreenState extends State<RegularUserHomeScreen> {
               child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            TextField(
+            const TextField(
               decoration: InputDecoration(
                 labelText: 'Enter Location',
-                prefixIcon: const Icon(Icons.location_on),
+                prefixIcon: Icon(Icons.location_on),
               ),
             ),
-            SizedBox(height: 16.0),
+            const SizedBox(height: 16.0),
             ElevatedButton(
               onPressed: () {
                 // Search monuments logic
               },
-              child: Text('Search'),
+              child: const Text('Search'),
             ),
           ],
         ),
@@ -166,11 +166,24 @@ class AppDrawer extends StatefulWidget {
 class _AppDrawerState extends State<AppDrawer> {
   String email = "";
   String name = "";
+  String image = "";
+
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
     getname();
+    getdata();
+  }
+
+  getdata() async {
+    DocumentSnapshot snap = await FirebaseFirestore.instance
+        .collection('users')
+        .doc(FirebaseAuth.instance.currentUser!.uid)
+        .get();
+    setState(() {
+      image = (snap.data() as Map<String, dynamic>)['imageLink'];
+    });
   }
 
   getname() async {
@@ -184,6 +197,7 @@ class _AppDrawerState extends State<AppDrawer> {
     });
   }
 
+  @override
   Widget build(BuildContext context) {
     return Drawer(
       child: ListView(
@@ -196,11 +210,11 @@ class _AppDrawerState extends State<AppDrawer> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const CircleAvatar(
+                CircleAvatar(
                   radius: 30.0,
                   // Replace with the user's profile image
                   backgroundImage:
-                      AssetImage('assets/images/hero_image.jpg'),
+                      NetworkImage(image),
                 ),
                 const SizedBox(height: 8.0),
                 Text(

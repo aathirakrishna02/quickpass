@@ -74,10 +74,10 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Edit Profile'),
+        title: const Text('Edit Profile'),
       ),
       body: Padding(
-        padding: EdgeInsets.all(16.0),
+        padding: const EdgeInsets.all(16.0),
         child: Column(
           children: [
                 _image == null
@@ -99,34 +99,31 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                     left: 65,
                     child: IconButton(
                         onPressed: () async {
-                          // ImagePicker imagePicker = ImagePicker();
-                          // XFile? file = await imagePicker.pickImage(
-                          //     source: ImageSource.gallery);
                           selectImage();
                         },
                         icon: const Icon(Icons.add_a_photo))),
             const SizedBox(height: 16.0),
             TextFormField(
               controller: _nameController,
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                 labelText: 'Full Name',
               ),
             ),
             const SizedBox(height: 16.0),
             TextFormField(
               controller: _emailController,
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                 labelText: 'Email',
               ),
             ),
             const SizedBox(height: 16.0),
             TextFormField(
               controller: _phoneController,
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                 labelText: 'Phone Number',
               ),
             ),
-            SizedBox(height: 16.0),
+            const SizedBox(height: 16.0),
             ElevatedButton(
               onPressed: () {
                 saveprofile();
@@ -143,38 +140,11 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
           Navigator.of(context)
               .push(MaterialPageRoute(builder: (context) => ProfileScreen()));
               },
-              child: Text('Save'),
+              child: const Text('Save'),
             ),
           ],
         ),
       ),
     );
   }
-
-  // Widget _buildImagePickerOptions(BuildContext context) {
-  //   return Container(
-  //     padding: EdgeInsets.all(16.0),
-  //     child: Column(
-  //       mainAxisSize: MainAxisSize.min,
-  //       children: [
-  //         ListTile(
-  //           leading: Icon(Icons.photo_library),
-  //           title: Text('Choose from Gallery'),
-  //           onTap: () {
-  //             pickImage(ImageSource.gallery);
-  //             Navigator.pop(context);
-  //           },
-  //         ),
-  //         ListTile(
-  //           leading: Icon(Icons.camera_alt),
-  //           title: Text('Take a Photo'),
-  //           onTap: () {
-  //             pickImage(ImageSource.camera);
-  //             Navigator.pop(context);
-  //           },
-  //         ),
-  //       ],
-  //     ),
-  //   );
-  // }
 }
