@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import 'bookingscreen.dart';
 
 class MonumentDetailScreen extends StatefulWidget {
@@ -18,7 +17,32 @@ class MonumentDetailScreen extends StatefulWidget {
 }
 
 class _MonumentDetailScreenState extends State<MonumentDetailScreen> {
+  
   double _rating = 0.0;
+  // int count =0;
+  // List<String>monum=[];
+  // List<String>img=[];
+
+  // getmonuments() async {
+  //   QuerySnapshot querySnapshot =
+  //       await FirebaseFirestore.instance.collection('monument').get();
+  //   List<DocumentSnapshot> documents = querySnapshot.docs;
+  //   for (var document in documents) {
+  //     String name = (document.data() as Map<String, dynamic>)['name'];
+  //     String imageLink = (document.data() as Map<String, dynamic>)['imageLink'];
+  //     monum.add(name);
+  //     img.add(imageLink);
+  //   }
+  // }
+
+  // getimage(){
+  //   for (var i in monum){
+  //     if (widget.monumentName == i){
+  //       return img[count];
+  //     }
+  //     count+=1;
+  //   }
+  // }
 
   @override
   Widget build(BuildContext context) {

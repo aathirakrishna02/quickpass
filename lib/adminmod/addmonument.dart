@@ -5,6 +5,7 @@ import 'package:quickpass/adminmod/ahomescreen.dart';
 import 'dart:typed_data';
 import 'package:image_picker/image_picker.dart';
 import 'package:quickpass/resource/util.dart';
+import '../resource/storemonu.dart';
 
 class AddMonumentScreen extends StatefulWidget {
   @override
@@ -12,11 +13,12 @@ class AddMonumentScreen extends StatefulWidget {
 }
 
 class _AddMonumentScreenState extends State<AddMonumentScreen> {
-  TextEditingController _nameController = TextEditingController();
-  TextEditingController _descriptionController = TextEditingController();
-  TextEditingController _locationController = TextEditingController();
+  final TextEditingController _nameController = TextEditingController();
+  final TextEditingController _descriptionController = TextEditingController();
+  final TextEditingController _locationController = TextEditingController();
 
   Uint8List? _image;
+  String image = "";
 
   void selectImage() async {
     Uint8List img = await pickImage(ImageSource.gallery);
@@ -31,6 +33,22 @@ class _AddMonumentScreenState extends State<AddMonumentScreen> {
     _descriptionController.dispose();
     _locationController.dispose();
     super.dispose();
+  }
+
+  void saveprofile() async {
+    await Storedat().addImage(file: _image!);
+  }
+
+  final storage = FirebaseAuth.instance;
+
+  getdata() async {
+    DocumentSnapshot snap = await FirebaseFirestore.instance
+        .collection('Monuments')
+        .doc(FirebaseAuth.instance.currentUser!.uid)
+        .get();
+    setState(() {
+      image = (snap.data() as Map<String, dynamic>)['imageLink'];
+    });
   }
 
   @override
@@ -113,6 +131,7 @@ class _AddMonumentScreenState extends State<AddMonumentScreen> {
              ElevatedButton(
               child: Text('Add Monument'),
               onPressed: () {
+                saveprofile();
           FirebaseFirestore.instance
               .collection('monument')
               .doc(FirebaseAuth.instance.currentUser!.uid)

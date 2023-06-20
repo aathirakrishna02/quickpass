@@ -18,11 +18,13 @@ class _SearchPageState extends State<SearchPage> {
     // TODO: implement initState
     super.initState();
     getmonuments();
+    getimage();
   }
   final searchController = TextEditingController();
   List<String> filteredMonuments = [];
   List<String> monum = [];
   List<String> desc = [];
+  List<String> image = [];
   void filterMonuments(String searchQuery) {
     searchQuery = searchQuery.toLowerCase();
     setState(() {
@@ -37,15 +39,28 @@ class _SearchPageState extends State<SearchPage> {
     // List<String>monum=[];
     for (var document in documents) {
       String name = (document.data() as Map<String, dynamic>)['name'];
+      String imageLink = (document.data() as Map<String, dynamic>)['imageLink'];
       String description = (document.data() as Map<String, dynamic>)['description'];
       monum.add(name);
+      image.add(imageLink);
       desc.add(description);
     }
   }
 
-  int count = 0;
+  //int count = 0;
+
+  getimage(){
+    int count=0;
+    for (var i in monum) {
+      if (searchController.text == i) {
+        return image[count];
+      }
+      count +=1;
+    }
+  }
 
   getdescription(){
+    int count=0;
     for (var i in monum) {
       if (searchController.text == i) {
         return desc[count];
@@ -67,8 +82,8 @@ class _SearchPageState extends State<SearchPage> {
                 prefixIcon: IconButton(
                   icon: const Icon(Icons.search),
                                   onPressed: (){
-                  Navigator.of(context)
-                    .push(MaterialPageRoute(builder: (_) => MonumentDetailScreen(monumentName: searchController.text, description: getdescription(), imageUrl: '',)));
+                  // Navigator.of(context)
+                  //   .push(MaterialPageRoute(builder: (_) => MonumentDetailScreen(monumentName: searchController.text, description: getdescription(), imageUrl: getimage())));
                 },
                 ),
                 suffixIcon: IconButton(
@@ -94,7 +109,7 @@ class _SearchPageState extends State<SearchPage> {
                     setState(() {
                       searchController.text = vehicle;
                     });
-                    Navigator.of(context).push(MaterialPageRoute(builder: (_) => MonumentDetailScreen(monumentName: searchController.text, description: getdescription(), imageUrl: '',)));
+                    Navigator.of(context).push(MaterialPageRoute(builder: (_) => MonumentDetailScreen(monumentName: searchController.text, description: getdescription(), imageUrl: getimage())));
                   },
                 );
               },

@@ -55,7 +55,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   }
 
   void saveprofile() async {
-    String resp = await Storedata().addImage(file: _image!);
+    await Storedata().addImage(file: _image!);
   }
 
   final storage = FirebaseAuth.instance;

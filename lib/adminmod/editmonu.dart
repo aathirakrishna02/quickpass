@@ -1,6 +1,11 @@
 import 'package:flutter/material.dart';
 
-class EditMonumentScreen extends StatelessWidget {
+class EditMonumentScreen extends StatefulWidget {
+  @override
+  State<EditMonumentScreen> createState() => _EditMonumentScreenState();
+}
+
+class _EditMonumentScreenState extends State<EditMonumentScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(

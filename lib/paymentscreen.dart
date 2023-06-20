@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-
-//import 'ticketconfirmation.dart';
+import 'package:quickpass/ticketconfirmation.dart';
 
 class PaymentScreen extends StatefulWidget {
   @override
@@ -76,11 +75,11 @@ class _PaymentScreenState extends State<PaymentScreen> {
             ElevatedButton(
               child: Text('Pay Now'),
               onPressed: () {
-                //  Navigator.push(
-                //                       context,
-                //                       MaterialPageRoute(
-                //                           builder: (context) =>
-                //                               InvoiceScreen()));
+                 Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              InvoiceScreen(ticketId: '', monumentName: '', date: '', time: '', ticketType: '', ticketPrice: '', totalPrice: '')));
               },
 
               style: ElevatedButton.styleFrom(

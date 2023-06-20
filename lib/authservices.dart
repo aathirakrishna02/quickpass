@@ -28,7 +28,7 @@ static Future<String> signup({
         "name": name,
       });
 
-      res = 'succes ';
+      res = 'success ';
     } catch (e) {
       res = e.toString();
     }
