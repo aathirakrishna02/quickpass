@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import 'paymentscreen.dart';
 
 class BookingScreen extends StatefulWidget {
@@ -148,13 +147,7 @@ class _BookingScreenState extends State<BookingScreen> {
             ElevatedButton(
               child: const Text('Book Now'),
               onPressed: () {
-                Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) =>
-                                              PaymentScreen()));
-                
-
+                Navigator.push(context,MaterialPageRoute(builder: (context) => PaymentScreen()));
               },
               style: ElevatedButton.styleFrom(
               backgroundColor: Colors.blue,
