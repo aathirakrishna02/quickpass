@@ -261,8 +261,8 @@ class _AppDrawerState extends State<AppDrawer> {
             title: const Text('My Bookings'),
             onTap: () {
               // Handle bookings screen navigation
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => BookingScreen()));
+              // Navigator.push(context,
+              //     MaterialPageRoute(builder: (context) => BookingScreen()));
             },
           ),
           ListTile(

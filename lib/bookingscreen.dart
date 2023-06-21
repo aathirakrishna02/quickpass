@@ -1,7 +1,13 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
+import 'package:quickpass/ticketconfirmation.dart';
 import 'paymentscreen.dart';
 
 class BookingScreen extends StatefulWidget {
+  final String name;
+  BookingScreen({super.key, required this.name});
   @override
   _BookingScreenState createState() => _BookingScreenState();
 }
@@ -10,6 +16,29 @@ class _BookingScreenState extends State<BookingScreen> {
   int numberOfTickets = 1;
   DateTime selectedDate = DateTime.now();
   TimeOfDay selectedTime = TimeOfDay.now();
+  String? date;
+  String? time;
+  savedetails() async {
+    print(numberOfTickets);
+    print(selectedDate);
+    print(selectedTime);
+    print(widget.name);
+    date = selectedDate.toString();
+    time = selectedTime.toString();
+    date = date!.substring(0, 10);
+    time = time!.substring(10, 15);
+    await FirebaseFirestore.instance
+        .collection('users')
+        .doc(FirebaseAuth.instance.currentUser!.uid)
+        .collection('booking-data')
+        .doc()
+        .set({
+      'number': numberOfTickets,
+      'date': date,
+      'time': time,
+      'monument-name': widget.name
+    });
+  }
 
   Future<void> _selectDate(BuildContext context) async {
     final DateTime? picked = await showDatePicker(
@@ -140,22 +169,32 @@ class _BookingScreenState extends State<BookingScreen> {
             // RaisedButton(
             //   onPressed: () {
             //     // Handle booking button action
-                 
+
             //   },
             //   child: Text('Book Now'),
             // ),
             ElevatedButton(
               child: const Text('Book Now'),
               onPressed: () {
-                Navigator.push(context,MaterialPageRoute(builder: (context) => PaymentScreen()));
+                savedetails();
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => InvoiceScreen(
+                              date: date!,
+                              monumentName: widget.name,
+                              time: time!,
+                              numbertickets: numberOfTickets,
+                            )));
               },
               style: ElevatedButton.styleFrom(
-              backgroundColor: Colors.blue,
-              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10),),
-              textStyle: const TextStyle(
-              fontSize: 15,
-              fontWeight: FontWeight.bold)),
-              ),
+                  backgroundColor: Colors.blue,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  textStyle: const TextStyle(
+                      fontSize: 15, fontWeight: FontWeight.bold)),
+            ),
           ],
         ),
       ),
@@ -163,8 +202,8 @@ class _BookingScreenState extends State<BookingScreen> {
   }
 }
 
-void main() {
-  runApp(MaterialApp(
-    home: BookingScreen(),
-  ));
-}
+// void main() {
+//   runApp(MaterialApp(
+//     home: BookingScreen(),
+//   ));
+// }

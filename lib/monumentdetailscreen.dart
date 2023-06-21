@@ -120,7 +120,7 @@ class _MonumentDetailScreenState extends State<MonumentDetailScreen> {
                                       context,
                                       MaterialPageRoute(
                                           builder: (context) =>
-                                               BookingScreen()));
+                                               BookingScreen(name:widget.monumentName)));
 
               },
               style: ElevatedButton.styleFrom(

@@ -1,22 +1,22 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
+int autoid=1783;
 class InvoiceScreen extends StatefulWidget {
-   String ticketId;
+  
    String monumentName;
    String date;
    String time;
-   String ticketType;
-   String ticketPrice;
-   String totalPrice;
+   int numbertickets;
 
   InvoiceScreen({
-    required this.ticketId,
-    required this.monumentName,
     required this.date,
+    required this.monumentName,
     required this.time,
-    required this.ticketType,
-    required this.ticketPrice,
-    required this.totalPrice,
+    required this.numbertickets
+    
+  
   });
 
   @override
@@ -24,6 +24,10 @@ class InvoiceScreen extends StatefulWidget {
 }
 
 class _InvoiceScreenState extends State<InvoiceScreen> {
+
+  
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -36,7 +40,7 @@ class _InvoiceScreenState extends State<InvoiceScreen> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              'Ticket ID: ${widget.ticketId}',
+              'Ticket ID: ${(autoid+13)}',
               style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold),
             ),
             SizedBox(height: 16.0),
@@ -57,14 +61,10 @@ class _InvoiceScreenState extends State<InvoiceScreen> {
            
             SizedBox(height: 16.0),
             Text(
-              'Ticket Price: \$${widget.ticketPrice}',
+              'Number of tickets: ${widget.numbertickets}',
               style: TextStyle(fontSize: 18.0),
             ),
-            SizedBox(height: 16.0),
-            Text(
-              'Total Price: \$${widget.totalPrice}',
-              style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold),
-            ),
+            
           ],
         ),
       ),
