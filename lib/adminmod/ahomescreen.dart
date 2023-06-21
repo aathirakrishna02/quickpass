@@ -76,17 +76,17 @@ class AdminUserHomeScreen extends StatelessWidget {
             },
           ),
           const Divider(),
-          ListTile(
-            leading: const Icon(Icons.star),
-            title: const Text('Rate Monuments'),
-            onTap: () {
-              // Handle rating functionality
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => RateMonumentsScreen()),
-              );
-            },
-          ),
+          // ListTile(
+          //   leading: const Icon(Icons.star),
+          //   title: const Text('Rate Monuments'),
+          //   onTap: () {
+          //     // Handle rating functionality
+          //     Navigator.push(
+          //       context,
+          //       MaterialPageRoute(builder: (context) => RateMonumentsScreen()),
+          //     );
+          //   },
+          // ),
         ],
       ),
     );

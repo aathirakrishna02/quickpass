@@ -4,6 +4,7 @@ import 'package:quickpass/login.dart';
 //import 'package:quickpass/register.dart';
 //import 'package:quickpass/splash.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:quickpass/splash.dart';
 
 
 Future<void> main() async {
@@ -15,7 +16,7 @@ Future<void> main() async {
     debugShowCheckedModeBanner: false,
     initialRoute: 'login',
     routes: {
-      'login': (context) => LoginScreen(),
+      'login': (context) => SplashScreen(),
       //'register' :(context) =>SignupScreen()
     },
   ));
