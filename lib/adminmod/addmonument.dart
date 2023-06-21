@@ -19,6 +19,7 @@ class _AddMonumentScreenState extends State<AddMonumentScreen> {
 
   Uint8List? _image;
   String image = "";
+  int totaltickets = 50;
 
   void selectImage() async {
     Uint8List img = await pickImage(ImageSource.gallery);
@@ -140,6 +141,8 @@ class _AddMonumentScreenState extends State<AddMonumentScreen> {
               "name": _nameController.text.trim(),
               "description": _descriptionController.text.trim(),
               "location": _locationController.text.trim(),
+              "tickets availble": totaltickets,
+              "uid":FirebaseAuth.instance.currentUser!.uid,
             },
           );
           Navigator.of(context)

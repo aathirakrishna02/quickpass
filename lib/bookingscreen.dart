@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
+import 'package:quickpass/homepage.dart';
 import 'package:quickpass/ticketconfirmation.dart';
 import 'paymentscreen.dart';
 
@@ -13,16 +14,42 @@ class BookingScreen extends StatefulWidget {
 }
 
 class _BookingScreenState extends State<BookingScreen> {
+  int totaltickets = 50;
   int numberOfTickets = 1;
   DateTime selectedDate = DateTime.now();
   TimeOfDay selectedTime = TimeOfDay.now();
   String? date;
   String? time;
+  bool isTicketAvailable = true;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    getid();
+  }
+
+  void checkTicketAvailability() {
+    // TODO: Implement your logic to check the availability of the ticket
+    if (numberOfTickets < totaltickets) {
+      isTicketAvailable = true;
+    } else {
+      isTicketAvailable = false;
+    }
+  }
+
+  // void storebooking() async {
+  //   DocumentSnapshot snap=await FirebaseFirestore.instance.collection()
+  //   await FirebaseFirestore.instance
+  //       .collection('users')
+  //       .doc(FirebaseAuth.instance.currentUser!.uid)
+  //       .collection('booking_data')
+  //       .doc()
+  //       .set({});
+  // }
+
   savedetails() async {
-    print(numberOfTickets);
-    print(selectedDate);
-    print(selectedTime);
-    print(widget.name);
+    
     date = selectedDate.toString();
     time = selectedTime.toString();
     date = date!.substring(0, 10);
@@ -36,8 +63,24 @@ class _BookingScreenState extends State<BookingScreen> {
       'number': numberOfTickets,
       'date': date,
       'time': time,
-      'monument-name': widget.name
+      'monument-name': widget.name,
+      'monument-id':id,
+      'user-id':FirebaseAuth.instance.currentUser!.uid,
+      'status':'pending'
     });
+    await FirebaseFirestore.instance
+        .collection('monument')
+        .doc(id)
+        .collection('booking-data')
+        .doc().set({
+          'user-id':FirebaseAuth.instance.currentUser!.uid,
+          'number': numberOfTickets,
+          'date': date,
+          'time': time,
+          'uid':id,
+          'status':'pending'
+        });
+        Navigator.pushReplacement(context, MaterialPageRoute(builder: (ctx)=>RegularUserHomeScreen()));
   }
 
   Future<void> _selectDate(BuildContext context) async {
@@ -64,6 +107,17 @@ class _BookingScreenState extends State<BookingScreen> {
         selectedTime = picked;
       });
     }
+  }
+
+  String? id;
+  getid() async {
+    QuerySnapshot querySnapshot = await FirebaseFirestore.instance
+        .collection('monument')
+        .where('name', isEqualTo: widget.name)
+        .get();
+    id = querySnapshot.docs[0].id;
+    print('hello');
+    print(id);
   }
 
   @override
@@ -177,15 +231,29 @@ class _BookingScreenState extends State<BookingScreen> {
               child: const Text('Book Now'),
               onPressed: () {
                 savedetails();
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => InvoiceScreen(
-                              date: date!,
-                              monumentName: widget.name,
-                              time: time!,
-                              numbertickets: numberOfTickets,
-                            )));
+                // checkTicketAvailability();
+                // if (isTicketAvailable == true) {
+                //   savedetails();
+                //   Navigator.push(
+                //       context,
+                //       MaterialPageRoute(
+                //           builder: (context) => InvoiceScreen(
+                //                 date: date!,
+                //                 monumentName: widget.name,
+                //                 time: time!,
+                //                 numbertickets: numberOfTickets,
+                //               )));
+                //   totaltickets -= numberOfTickets;
+                //   print(totaltickets);
+                //   print(numberOfTickets);
+                // } else {
+                //   Text(
+                //     isTicketAvailable
+                //         ? 'Ticket is available!'
+                //         : 'Ticket is not available.',
+                //     style: TextStyle(fontSize: 20.0),
+                //   );
+                // }
               },
               style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.blue,
